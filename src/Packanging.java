@@ -15,18 +15,19 @@ public class Packanging implements Callable<String> {
         this.data = dataType.get(1);
     }
 
+    // Собираем пакет
     @Override
     public String call() throws Exception {
 
         sb.append(packSignature());
-        sb.append(dataLenght());
+        sb.append(dataLength());
         sb.append(dataType());
         sb.append(getData());
         sb.append(CRC32());
 
         return  sb.toString();
     }
-
+    // Сигнатура длинной 8 симоволов
     private String packSignature(){
         StringBuilder sb = new StringBuilder();
         Random rand = new Random();
@@ -37,25 +38,27 @@ public class Packanging implements Callable<String> {
         }
         return sb.toString();
     }
-
-    private int dataLenght() {
-        return data.length();
+    // Длинна данных - 3 символа
+    private String dataLength() {
+        return String.format("%03d", data.length());
     }
 
+    // Тип данных - 7 символов
     private String dataType() {
-        return dataType;
+        return String.format("%-7s", dataType);
     }
 
+    // Сами данные
     private String getData() {
         return data;
     }
 
-
+    // Считаем контрольную сумму от всего пакета - длина 8 символов
     private String CRC32() {
         CRC32 crc32 = new CRC32();
-        crc32.update(data.getBytes());
+        crc32.update(sb.toString().getBytes());
         long value = crc32.getValue();
-        return String.valueOf(value);
+        return String.format("%08X", value);
     }
 
 }
