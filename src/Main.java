@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.*;
 
 public class Main {
@@ -12,7 +11,7 @@ public class Main {
         System.out.println("""
                     CONSOLE – сервер выведет данные в консоль;
                     PLAIN – сервер сохранит данные в обычный файл свободного формата;
-                    JSON – сервер сохранить данные в файл с типом .json и json-форматированием
+                    JSON – сервер сохранить данные в файл с типом .json и json-форматированием;
                 """);
         System.out.println("Введи формат, в котором ты хочешь отправить данные, например, CONSOLE");
 
@@ -29,8 +28,6 @@ public class Main {
         dataThread.start();
         packagingThread.start();
         sendThread.start();
-
-        //System.out.println(packetQueue.take());
 
     }
 }

@@ -7,23 +7,26 @@ public class DataType implements Runnable {
     private final BlockingQueue<ArrayList<String>> dataQueue;
     static Scanner sc = new Scanner(System.in);
 
-    public DataType(BlockingQueue dataQueue){
+    public DataType(BlockingQueue dataQueue) {
         this.dataQueue = dataQueue;
     }
 
     @Override
     public void run() {
-        chooseDataType();
-        System.out.println("Введите данные (не более 200 символов):");
-        inputData();
-        try {
-            dataQueue.put(inputData);
-        }catch (InterruptedException e){
-            e.printStackTrace();
+        while (true) {
+            chooseDataType();
+            System.out.println("Введите данные (не более 200 символов):");
+            inputData();
+            try {
+                    dataQueue.put(inputData);
+                //System.out.println(Thread.currentThread().getState());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void chooseDataType(){
+    private void chooseDataType() {
         while (true) {
             if (sc.hasNext()) {
                 String str = sc.nextLine();
@@ -37,7 +40,7 @@ public class DataType implements Runnable {
         }
     }
 
-    private void inputData(){
+    private void inputData() {
         if (sc.hasNext()) {
             String data = sc.nextLine();
             while (true) {

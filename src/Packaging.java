@@ -9,17 +9,17 @@ public class Packaging implements Runnable {
     private final BlockingQueue<String> packetQueue;
     StringBuilder sb = new StringBuilder();
 
-    public Packaging(BlockingQueue dataQueue, BlockingQueue packetQueue){
+    public Packaging(BlockingQueue dataQueue, BlockingQueue packetQueue) {
         this.dataQueue = dataQueue;
         this.packetQueue = packetQueue;
     }
 
     // Сигнатура длинной 8 симоволов
-    static{
+    static {
         StringBuilder sb = new StringBuilder();
         Random rand = new Random();
 
-        for (int i=0; i < 8; i++){
+        for (int i = 0; i < 8; i++) {
             char symbol = (char) (33 + rand.nextInt(94));
             sb.append(symbol);
         }
@@ -43,6 +43,7 @@ public class Packaging implements Runnable {
                 // Отравляем пакет в очередь packetQueue
                 try {
                     packetQueue.put(sb.toString());
+                    //System.out.println(Thread.currentThread().getState());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
