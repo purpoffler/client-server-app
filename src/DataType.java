@@ -18,7 +18,7 @@ public class DataType implements Runnable {
             System.out.println("Введите данные (не более 200 символов):");
             inputData();
             try {
-                    dataQueue.put(inputData);
+                dataQueue.put(inputData);
                 //System.out.println(Thread.currentThread().getState());
             } catch (InterruptedException e) {
                 e.printStackTrace();

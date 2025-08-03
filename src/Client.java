@@ -28,24 +28,27 @@ public class Client implements Runnable {
             while (true) {
                 try {
                     String packet = packetQueue.take();// Получаем данные из очереди dataQueue
-                    //System.out.println(packetQueue.take());
+                    System.out.println(packet);
                     out.write(packet + "\n"); // отправляем сообщение на сервер
                     out.flush();
                     String serverWord = in.readLine(); // ждём, что скажет сервер
                     System.out.println(serverWord); // получив - выводим на экран
-                    if (serverWord.equalsIgnoreCase("Лел, а данных-то я не получил!")){
+                    if (serverWord.equalsIgnoreCase("Лел, а данных-то я не получил!")) {
                         out.write(packet + "\n"); // отправляем сообщение на сервер
                         out.flush();
                     }
                     //System.out.println(Thread.currentThread().getState());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                } finally {
+                    packetQueue.clear();
+                    //System.out.println(packetQueue);
                 }
             }
         } catch (UnknownHostException e) {
-            throw new RuntimeException("Неправильный хост",e);
+            throw new RuntimeException("Неправильный хост", e);
         } catch (IOException e) {
-            throw new RuntimeException("Потеря соединения",e);
+            throw new RuntimeException("Потеря соединения", e);
         }
     }
 }

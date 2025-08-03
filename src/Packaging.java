@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.zip.CRC32;
 
 public class Packaging implements Runnable {
-    static final String signature;
+    static final String signature = "zWj`Jjkg";
     private final BlockingQueue<ArrayList<String>> dataQueue;
     private final BlockingQueue<String> packetQueue;
     StringBuilder sb = new StringBuilder();
@@ -14,17 +13,6 @@ public class Packaging implements Runnable {
         this.packetQueue = packetQueue;
     }
 
-    // Сигнатура длинной 8 симоволов
-    static {
-        StringBuilder sb = new StringBuilder();
-        Random rand = new Random();
-
-        for (int i = 0; i < 8; i++) {
-            char symbol = (char) (33 + rand.nextInt(94));
-            sb.append(symbol);
-        }
-        signature = sb.toString();
-    }
 
     // Собираем пакет
     @Override
@@ -49,6 +37,9 @@ public class Packaging implements Runnable {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            } finally {
+                dataQueue.clear();
+                //System.out.println(dataQueue);
             }
         }
     }
