@@ -45,7 +45,7 @@ public class DataType implements Runnable {
             String data = sc.nextLine();
             while (true) {
                 if (data.length() < 200) {
-                    System.out.println("кайф!");
+//                    System.out.println("кайф!");
                     inputData.add(data);
                     break;
                 }

@@ -6,7 +6,6 @@ import java.util.concurrent.BlockingQueue;
 public class Client implements Runnable {
     private final BlockingQueue<String> packetQueue;
     private static Socket clientSocket;
-    private static BufferedReader reader;
     private static BufferedReader in;
     private static BufferedWriter out;
 
@@ -19,10 +18,9 @@ public class Client implements Runnable {
         try {
             clientSocket = new Socket("localhost", 4004);
 
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            // читать соообщения с сервера
+            // Читаем сообщения от сервера
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            // писать туда же
+            // Пишем серверу
             out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
             while (true) {
@@ -34,7 +32,7 @@ public class Client implements Runnable {
                     String serverWord = in.readLine(); // ждём, что скажет сервер
                     System.out.println(serverWord); // получив - выводим на экран
                     if (serverWord.equalsIgnoreCase("Лел, а данных-то я не получил!")) {
-                        out.write(packet + "\n"); // отправляем сообщение на сервер
+                        out.write(packet + "\n"); // повторно отправляем сообщение на сервер
                         out.flush();
                     }
                     //System.out.println(Thread.currentThread().getState());
