@@ -1,20 +1,32 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.Callable;
+import java.util.concurrent.BlockingQueue;
 
-public class DataType implements Callable<ArrayList<String>> {
-    static Scanner sc = new Scanner(System.in);
+public class DataType implements Runnable {
     ArrayList<String> inputData = new ArrayList<>();
+    private final BlockingQueue<ArrayList<String>> dataQueue;
+    static Scanner sc = new Scanner(System.in);
 
-    @Override
-    public ArrayList<String> call() throws Exception {
-        chooseDataType();
-        System.out.println("Введите данные (не более 200 символов):");
-        inputData();
-        return inputData;
+    public DataType(BlockingQueue dataQueue) {
+        this.dataQueue = dataQueue;
     }
 
-    private void chooseDataType(){
+    @Override
+    public void run() {
+        while (true) {
+            chooseDataType();
+            System.out.println("Введите данные (не более 200 символов):");
+            inputData();
+            try {
+                dataQueue.put(inputData);
+                //System.out.println(Thread.currentThread().getState());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void chooseDataType() {
         while (true) {
             if (sc.hasNext()) {
                 String str = sc.nextLine();
@@ -28,12 +40,12 @@ public class DataType implements Callable<ArrayList<String>> {
         }
     }
 
-    private void inputData(){
+    private void inputData() {
         if (sc.hasNext()) {
             String data = sc.nextLine();
             while (true) {
                 if (data.length() < 200) {
-                    System.out.println("кайф!");
+//                    System.out.println("кайф!");
                     inputData.add(data);
                     break;
                 }
@@ -41,6 +53,4 @@ public class DataType implements Callable<ArrayList<String>> {
             }
         }
     }
-
-
 }
