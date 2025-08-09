@@ -1,3 +1,5 @@
+package PackagingLevel;
+
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.zip.CRC32;
@@ -6,9 +8,11 @@ public class Packaging implements Runnable {
     static final String signature = "zWj`Jjkg";
     private final BlockingQueue<ArrayList<String>> dataQueue;
     private final BlockingQueue<String> packetQueue;
-    StringBuilder sb = new StringBuilder();
 
-    public Packaging(BlockingQueue dataQueue, BlockingQueue packetQueue) {
+    // Нужен ли тут volatile??
+    private volatile StringBuilder sb = new StringBuilder();
+
+    public Packaging(BlockingQueue<ArrayList<String>> dataQueue, BlockingQueue<String> packetQueue) {
         this.dataQueue = dataQueue;
         this.packetQueue = packetQueue;
     }
@@ -33,12 +37,12 @@ public class Packaging implements Runnable {
                     packetQueue.put(sb.toString());
                     //System.out.println(Thread.currentThread().getState());
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.println("Поток прерван во время put()");
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("Поток прерван во время take()");
             } finally {
-                dataQueue.clear();
+                sb.setLength(0);
                 //System.out.println(dataQueue);
             }
         }
