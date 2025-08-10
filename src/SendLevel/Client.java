@@ -21,16 +21,14 @@ public class Client implements Runnable {
     public void run() {
         try {
             clientSocket = new Socket("localhost", 4004);
-
             // Читаем сообщения от сервера
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             // Пишем серверу
             out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-
             while (true) {
                 try {
                     String packet = packetQueue.take();// Получаем данные из очереди dataQueue
-                    System.out.println(packet);
+                    // System.out.println(packet); Нужно будет перенаправить в файл
                     out.write(packet + "\n"); // отправляем сообщение на сервер
                     out.flush();
                     String serverWord = in.readLine(); // ждём, что скажет сервер
