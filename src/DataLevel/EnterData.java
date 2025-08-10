@@ -2,7 +2,7 @@ package DataLevel;
 
 import java.util.Scanner;
 
-public class InputData {
+public class EnterData {
     private static Scanner sc = new Scanner(System.in);
 
     static String inputData() {

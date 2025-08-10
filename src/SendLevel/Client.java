@@ -1,5 +1,7 @@
 package SendLevel;
 
+import DataLevel.Instruction;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -32,7 +34,9 @@ public class Client implements Runnable {
                     out.write(packet + "\n"); // отправляем сообщение на сервер
                     out.flush();
                     String serverWord = in.readLine(); // ждём, что скажет сервер
-                    System.out.println(serverWord); // получив - выводим на экран
+                    System.out.println(serverWord);
+                    Thread.sleep(500);// получив - выводим на экран
+                    Instruction.getInstruction();
                     if (serverWord.equalsIgnoreCase("Лел, а данных-то я не получил!")) {
                         out.write(packet + "\n"); // повторно отправляем сообщение на сервер
                         out.flush();
@@ -40,9 +44,6 @@ public class Client implements Runnable {
                     //System.out.println(Thread.currentThread().getState());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                } finally {
-                    packetQueue.clear();
-                    //System.out.println(packetQueue);
                 }
             }
         } catch (UnknownHostException e) {

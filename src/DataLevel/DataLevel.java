@@ -1,13 +1,11 @@
 package DataLevel;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.BlockingQueue;
 
 public class DataLevel implements Runnable {
-    private ArrayList<String> inputData = new ArrayList<>();
+    private LinkedHashMap<String, String> inputData = new LinkedHashMap<>();
     private final BlockingQueue<ArrayList<String>> dataQueue;
-    private Scanner sc = new Scanner(System.in);
 
     public DataLevel(BlockingQueue<ArrayList<String>> dataQueue) {
         this.dataQueue = dataQueue;
@@ -16,16 +14,16 @@ public class DataLevel implements Runnable {
     @Override
     public void run() {
         while (true) {
-            Instruction.getInstruction();
-            // добавляем в лист выбранный тип данных
-            inputData.add(ChooseType.chooseDataType());
+            // добавляем в мапу тип данных
+            inputData.put("dataType", ChooseType.chooseDataType());
             System.out.println("Введите данные (не более 200 символов):");
 
-            // добавляем в лист сами данные
-            inputData.add(InputData.inputData());
+            // добавляем в мапу сами данные
+            inputData.put("data", EnterData.inputData());
 
             try {
-                dataQueue.put(inputData);
+                //System.out.println(inputData.values());
+                dataQueue.put(new ArrayList<>(inputData.values()));
             } catch (InterruptedException e) {
                 System.out.println("Поток прерван во время put()");
                 //   e.printStackTrace();

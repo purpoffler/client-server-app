@@ -9,24 +9,23 @@ public class Packaging implements Runnable {
     private final BlockingQueue<ArrayList<String>> dataQueue;
     private final BlockingQueue<String> packetQueue;
 
-    // Нужен ли тут volatile??
-    private volatile StringBuilder sb = new StringBuilder();
 
     public Packaging(BlockingQueue<ArrayList<String>> dataQueue, BlockingQueue<String> packetQueue) {
         this.dataQueue = dataQueue;
         this.packetQueue = packetQueue;
     }
 
-
     // Собираем пакет
     @Override
     public void run() {
         while (true) {
             try {
+                StringBuilder sb = new StringBuilder();
                 ArrayList<String> list = dataQueue.take(); // Получаем данные из очереди dataQueue
-                String dataType = list.get(0);
-                String data = list.get(1);
+                String dataType = list.get(0); // Получаем тип данных
+                String data = list.get(1); // Получаем данные
                 // Собираем пакет
+                sb.setLength(0);
                 sb.append(signature);
                 sb.append(dataLength(data));
                 sb.append(dataType(dataType));
@@ -41,9 +40,6 @@ public class Packaging implements Runnable {
                 }
             } catch (InterruptedException e) {
                 System.out.println("Поток прерван во время take()");
-            } finally {
-                sb.setLength(0);
-                //System.out.println(dataQueue);
             }
         }
     }

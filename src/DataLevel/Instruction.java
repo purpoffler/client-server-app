@@ -3,6 +3,7 @@ package DataLevel;
 public class Instruction {
     // Инструкция
     public static void getInstruction() {
+        System.out.println();
         System.out.println("Привет!");
         System.out.println("С помощью меня ты можешь отправить данные различных типов:");
         System.out.println("""
