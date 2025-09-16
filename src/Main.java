@@ -1,16 +1,9 @@
-
-import DataLevel.DataLevel;
-import PackagingLevel.PackagingLevel;
-import SendLevel.Client;
-
-import java.util.HashMap;
 import java.util.concurrent.*;
 
 public class Main {
-
     public static void main(String[] args) throws Exception {
         // Очереди для связи между потоками
-        BlockingQueue<HashMap<String, String>> dataQueue = new LinkedBlockingQueue<>();
+        BlockingQueue<Message> dataQueue = new LinkedBlockingQueue<>();
         BlockingQueue<String> packetQueue = new LinkedBlockingQueue<>();
 
         // Создаем потоки и передаем в них очереди, с которыми они должны работать
