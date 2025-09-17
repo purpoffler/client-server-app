@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
+import java.util.logging.Logger;
 import java.util.zip.CRC32;
 
 public class PackagingLevel implements Runnable {
