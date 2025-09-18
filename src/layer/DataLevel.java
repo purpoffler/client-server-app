@@ -1,3 +1,9 @@
+package layer;
+
+import dto.Message;
+import layer.enums.ExpectedDataType;
+import utlis.ConsoleHelper;
+
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 
@@ -13,16 +19,16 @@ public class DataLevel implements Runnable {
         ConsoleHelper.getInstruction();
         while (true) {
             ExpectedDataType dataType = chooseDataType();
-            String data = inputData();
+            String data = collectData();
             try {
                 dataQueue.put(new Message(data, dataType));
             } catch (InterruptedException e) {
-                ConsoleHelper.writeMessage("Ошибка при добавлении в очередь на уровне DataLevel");
+                ConsoleHelper.writeMessage("Ошибка при добавлении в очередь на уровне layer.DataLevel");
             }
         }
     }
 
-    private String inputData() {
+    private String collectData() {
         while (true) {
             String data = ConsoleHelper.readString();
             if (data.length() < 200) {

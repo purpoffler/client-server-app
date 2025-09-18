@@ -1,3 +1,5 @@
+package utlis;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,13 +24,15 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
+    public static void writeSystemMessage(String message) {
+        System.out.println("\u001B[34m" + "Системное сообщение:\n" + message + "\u001B[0m");
+    }
+
     public static String readString() {
         while (true) {
             try {
-
                     String line = bf.readLine();
                     return line;
-
             } catch (IOException e) {
                 System.out.println(" Произошла ошибка при попытке ввода текста. Попробуйте еще раз.");
             }

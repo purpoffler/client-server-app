@@ -1,3 +1,8 @@
+import layer.ClientLevel;
+import layer.DataLevel;
+import dto.Message;
+import layer.PackagingLevel;
+
 import java.util.concurrent.*;
 
 public class Main {
@@ -9,7 +14,7 @@ public class Main {
         // Создаем потоки и передаем в них очереди, с которыми они должны работать
         Thread dataThread = new Thread(new DataLevel(dataQueue));
         Thread packagingThread = new Thread(new PackagingLevel(dataQueue, packetQueue));
-        Thread sendThread = new Thread(new Client(packetQueue));
+        Thread sendThread = new Thread(new ClientLevel(packetQueue));
 
         // Запускаем потоки
         dataThread.start();

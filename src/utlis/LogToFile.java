@@ -1,5 +1,6 @@
+package utlis;
+
 import java.io.IOException;
-import java.util.Objects;
 import java.util.logging.*;
 
 public class LogToFile {

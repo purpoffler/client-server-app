@@ -1,6 +1,10 @@
-import java.util.HashMap;
+package layer;
+
+import dto.Message;
+import layer.enums.ExpectedDataType;
+import utlis.ConsoleHelper;
+
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Logger;
 import java.util.zip.CRC32;
 
 public class PackagingLevel implements Runnable {
@@ -34,7 +38,7 @@ public class PackagingLevel implements Runnable {
                 // Отравляем пакет в очередь packetQueue
                 String packet = sb.toString();
                 packetQueue.put(packet);
-                ConsoleHelper.writeMessage(sb.toString());
+                //ConsoleHelper.writeMessage(sb.toString()); // v file nado
             } catch (InterruptedException e) {
                 ConsoleHelper.writeMessage("Поток прерван во время работы с очередью");
             }
