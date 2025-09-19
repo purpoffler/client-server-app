@@ -55,12 +55,11 @@ public class PackagingLevel implements Runnable {
         return String.format("%-7s", dataType);
     }
 
-    // Считаем контрольную сумму от всего пакета - длина 8 символов
     public String crc32(String data) {
         CRC32 crc32 = new CRC32();
         crc32.update(data.getBytes());
         long value = crc32.getValue();
-        return String.format("%08X", value);
+        return String.valueOf(value);
     }
 
 }

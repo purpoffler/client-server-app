@@ -15,8 +15,7 @@ public class ClientLevel implements Runnable {
 
     @Override
     public void run() {
-        try {
-            Connection connection = new Connection();
+        try (Connection connection = new Connection()){
             while (true) {
                 String packet = packetQueue.take();// Получаем данные из очереди dataQueue
                 //ConsoleHelper.writeMessage(packet);//Нужно будет перенаправить в файл

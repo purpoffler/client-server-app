@@ -25,7 +25,7 @@ public class ConsoleHelper {
     }
 
     public static void writeSystemMessage(String message) {
-        System.out.println("\u001B[34m" + "Системное сообщение:\n" + message + "\u001B[0m");
+        System.out.println("\u001B[34m" + "Системное сообщение:\n" + message + "\u001B[0m" + "\n");
     }
 
     public static String readString() {
