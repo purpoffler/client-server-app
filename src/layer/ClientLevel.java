@@ -22,9 +22,10 @@ public class ClientLevel implements Runnable {
                 connection.send(packet + "\n"); // отправляем сообщение на сервер
                 String serverWord = connection.receive(); // ждём, что скажет сервер
                 ConsoleHelper.writeSystemMessage(serverWord); // получив - выводим на экран
-//                if (serverWord.equalsIgnoreCase("Лел, а данных-то я не получил!")) {
-//                    connection.send(packet + "\n"); // повторно отправляем сообщение на сервер
-//                }
+                if (serverWord.equalsIgnoreCase("false")) {
+                    ConsoleHelper.writeSystemMessage("Ошибка при отправке пакета");
+                    connection.send(packet + "\n"); // повторно отправляем сообщение на сервер
+                }
                 ConsoleHelper.getInstruction();
             }
         } catch (UnknownHostException e) {
