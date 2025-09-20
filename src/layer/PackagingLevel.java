@@ -30,10 +30,10 @@ public class PackagingLevel implements Runnable {
                 // Очищаем билдер
                 sb.setLength(0);
                 // Собираем пакет
-                sb.append(signature);
-                sb.append(dataLength(data));
-                sb.append(dataType(dataType));
-                sb.append(data);
+                sb.append(signature + "|");
+                sb.append(dataLength(data) + "|");
+                sb.append(dataType(dataType) + "|");
+                sb.append(data + "|");
                 sb.append(crc32(data));
                 // Отравляем пакет в очередь packetQueue
                 String packet = sb.toString();
