@@ -8,6 +8,7 @@ public class Connection implements Closeable {
     private final BufferedWriter out;
     private final BufferedReader in;
 
+
     public Connection() throws IOException {
             this.socket = new Socket("localhost", 4004);
             this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));

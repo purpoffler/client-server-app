@@ -20,6 +20,5 @@ public class Main {
         dataThread.start();
         packagingThread.start();
         sendThread.start();
-
     }
 }

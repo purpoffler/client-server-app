@@ -16,11 +16,9 @@ public class LogToFile {
         try {
             FileHandler fh = new FileHandler("Client.log", true);
             fh.setFormatter(new SimpleFormatter());
-
             Logger rootLogger = Logger.getLogger("");
             rootLogger.setLevel(Level.ALL);
             rootLogger.addHandler(fh);
-
             initialized = true;
         } catch (IOException e) {
             ConsoleHelper.writeMessage("Что-то не так с логгером");

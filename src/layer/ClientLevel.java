@@ -32,10 +32,10 @@ public class ClientLevel implements Runnable {
             throw new RuntimeException("Неправильный хост", e);
         } catch (IOException e) {
             throw new RuntimeException("Потеря соединения", e);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка при получении данных от сервера" ,e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Ошибка во время получения данных из packetQueue в ClientLevel", e);
         }
     }
 }

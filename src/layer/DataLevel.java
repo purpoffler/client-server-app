@@ -4,7 +4,6 @@ import dto.Message;
 import layer.enums.ExpectedDataType;
 import utlis.ConsoleHelper;
 
-import java.util.*;
 import java.util.concurrent.BlockingQueue;
 
 public class DataLevel implements Runnable {
@@ -41,14 +40,13 @@ public class DataLevel implements Runnable {
     private ExpectedDataType chooseDataType() {
         while (true) {
             String dataType = ConsoleHelper.readString();
-            // С помощью стрима проходим по всем допустимым значениям типа данных и находим совпадения
-            if (Arrays.stream(ExpectedDataType.values()).anyMatch(x -> x.name().equalsIgnoreCase(dataType))) {
+            try {
+                ExpectedDataType type = ExpectedDataType.valueOf(dataType.toUpperCase());
                 ConsoleHelper.writeMessage(String.format("Окей, тогда собираем %s", dataType));
-                return ExpectedDataType.valueOf(dataType.toUpperCase());
-            } else {
+                return type;
+            } catch (IllegalArgumentException e) {
                 ConsoleHelper.writeMessage("Упс, неправильный формат данных");
             }
         }
     }
-
 }
