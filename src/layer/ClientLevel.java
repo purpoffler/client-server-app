@@ -15,7 +15,7 @@ public class ClientLevel implements Runnable {
 
     @Override
     public void run() {
-        try (Connection connection = new Connection()){
+        try (Connection connection = new Connection()) {
             while (true) {
                 String packet = packetQueue.take();// Получаем данные из очереди dataQueue
                 //ConsoleHelper.writeMessage(packet);//Нужно будет перенаправить в файл
@@ -33,7 +33,7 @@ public class ClientLevel implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException("Потеря соединения", e);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Ошибка при получении данных от сервера" ,e);
+            throw new RuntimeException("Ошибка при получении данных от сервера", e);
         } catch (InterruptedException e) {
             throw new RuntimeException("Ошибка во время получения данных из packetQueue в ClientLevel", e);
         }
